@@ -15,6 +15,10 @@ public class Professor extends Pessoa {
     this.disciplina = disciplina;
   }
 
+  public String getNome(){
+    return this.nome;
+  }
+
   @Override
   public String toString() {
     return "Professor{" +

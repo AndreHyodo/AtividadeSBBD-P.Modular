@@ -1,5 +1,7 @@
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Minicurso {
   private Date data;
@@ -38,8 +40,9 @@ public class Minicurso {
 
   @Override
   public String toString() {
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy day"); 
     return "Minicurso{" +
-        "data=" + data +
+        "data=" + formato.format(data) +
         ", horaInicio=" + horaInicio +
         ", horaFim=" + horaFim +
         '}';
