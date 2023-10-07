@@ -24,7 +24,8 @@ public class App {
     Professores professores = Professores.getInstance();
     List<Professor> professoresLista = professores.listarProfessores();
 
-    switch (i){
+    while(true){
+      switch (i){
       case 1:
         System.out.println("Digite o nome do professor: ");
         String nomeProfessor = in.next();
@@ -108,7 +109,16 @@ public class App {
         Professor professorCpf = professores.pesquisarProfessorPorCpf(cpfPesquisa);
         System.out.println("O professor de cpf "+ professorCpf.getCpf()+ " é: "+ professorCpf.getNome());
 
-    }   
+      }
+      
+      System.out.println("\nDeseja continuar no menu? 1(sim) ou 2(não)");
+      Boolean menu = in.nextBoolean();
+      if(menu==false){
+        break;
+      }
+    }
+
+       
 
     in.close();
   }
