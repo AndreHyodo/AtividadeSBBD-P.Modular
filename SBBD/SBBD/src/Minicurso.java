@@ -1,12 +1,12 @@
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class Minicurso {
   private Date data;
   private Time horaInicio;
   private Time horaFim;
+  private Professor professor;
 
   public Minicurso(Date data, Time horaInicio, Time horaFim) {
     this.data = data;
@@ -36,6 +36,10 @@ public class Minicurso {
 
   public void setHoraFim(Time horaFim) {
     this.horaFim = horaFim;
+  }
+
+  public void setProfessor(Professor professor){
+    this.professor = professor;
   }
 
   @Override

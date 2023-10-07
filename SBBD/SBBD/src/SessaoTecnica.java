@@ -5,6 +5,7 @@ public class SessaoTecnica {
   private Date data;
   private Time horaInicio;
   private Time horaFim;
+  private Professor professor;
 
   public SessaoTecnica(Date data, Time horaInicio, Time horaFim) {
     this.data = data;
@@ -34,6 +35,10 @@ public class SessaoTecnica {
 
   public void setHoraFim(Time horaFim) {
     this.horaFim = horaFim;
+  }
+
+  public void setProfessor(Professor professor){
+    this.professor = professor;
   }
 
   @Override

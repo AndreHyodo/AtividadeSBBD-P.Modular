@@ -1,54 +1,116 @@
 import java.util.List;
-import java.util.Locale;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.SimpleTimeZone;
 
 public class App {
+
+  private static List<SessaoTecnica> sessoesTecnicas;
+  private static List<Minicurso> minicursos;
+  
   public static void main(String[] args) throws ParseException {
     Scanner in = new Scanner(System.in);
+
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     DateFormat formatterTime = new SimpleDateFormat("HH:mm");
 
+    System.out.println(" Simposio Brasileiro de Banco de Dados");
+    System.out.println("1 - Adicionar Professor \n2 - Adicionar Minicurso\n3 - Adicionar Sessao Tecnica\n4 - Imprimir Sessões Técnicas\n5 - Imprimir Minicursos\n6 - Imprimir lista de Professores\n7- Pesquisar Professor por cpf.");
+    int i = in.nextInt();
+
     Professores professores = Professores.getInstance();
-
-    professores.adicionarProfessor(new Professor("João da Silva", "joao.silva@email.com", "123.456.789-00", "Banco de Dados"));
-    professores.adicionarProfessor(new Professor("Carlos Santos", "carlos.santos@email.com", "987.654.321-00", "Banco de Dados"));
-
-    // Remover um professor da coleção
-    // professores.removerProfessor(professores.pesquisarProfessorPorCpf("123.456.789-00"));
-
-    System.out.println("Digite a data do curso: ");
-    String stringData = in.nextLine();
-    Date dataCurso = formatter.parse(stringData);
-
-    System.out.println("Digite o horário de inicio do curso: ");
-    String horaInicioString = in.nextLine();
-    Time timeValue = new java.sql.Time(formatterTime.parse(horaInicioString).getTime());
-
-    Minicurso minicurso1 = new Minicurso(dataCurso, timeValue, timeValue);
-
-    System.out.println("Cadastrado: " + minicurso1.toString());
-    
-    Professor professor = professores.pesquisarProfessorPorCpf("123.456.789-00");
-    System.out.println("O professor de cpf "+ professor.getCpf()+ " é: "+ professor.getNome());
-
     List<Professor> professoresLista = professores.listarProfessores();
-    
-    int n = professoresLista.size();
 
-    for (int i=0; i< n ; i++) {
-      System.out.println(professoresLista.get(i).getNome());
-    }
+    switch (i){
+      case 1:
+        System.out.println("Digite o nome do professor: ");
+        String nomeProfessor = in.next();
+        System.out.println("Digite o email do professor: ");
+        String emailProfessor = in.next();
+        System.out.println("Digite o cpf do professor: ");
+        String cpfProfessor = in.next();
+        System.out.println("Digite a disciplina do professor: ");
+        String disciplinaProfessor = in.next();
+        
+        professores.adicionarProfessor(new Professor(nomeProfessor, emailProfessor, cpfProfessor, disciplinaProfessor));     
 
-    Universidade universidade = new Universidade("Universidade de São Paulo", "123.456.789/0001-99");
+        break;
+      case 2:
+        System.out.println("Digite a data do curso: ");
+        String stringData = in.next();
+        Date dataCurso = formatter.parse(stringData);
 
-    System.out.println(universidade.getNome());
+        System.out.println("Digite o horário de inicio do curso: ");
+        String horaInicioString = in.next();
+        Time timeValue = new java.sql.Time(formatterTime.parse(horaInicioString).getTime());
+
+        System.out.println("Digite o horário de término do curso: ");
+        String horaFinalString = in.next();
+        Time timeValueFinal = new java.sql.Time(formatterTime.parse(horaFinalString).getTime());
+        
+        
+        
+        Minicurso minicurso1 = new Minicurso(dataCurso, timeValue, timeValueFinal);
+        System.out.println("Cadastrado: " + minicurso1.toString());
+
+        minicursos.add(new Minicurso(dataCurso, timeValue, timeValueFinal));
+        break;
+
+      case 3:
+        System.out.println("Digite a data da Sessão Técnica: ");
+        String stringDataSessao = in.next();
+        Date dataSessao = formatter.parse(stringDataSessao);
+
+        System.out.println("Digite o horário de inicio do curso: ");
+        String horaInicioStringSessao = in.next();
+        Time timeValueSessao = new java.sql.Time(formatterTime.parse(horaInicioStringSessao).getTime());
+
+        System.out.println("Digite o horário de término do curso: ");
+        String horaFinalStringSessao = in.next();
+        Time timeValueFinalSessao = new java.sql.Time(formatterTime.parse(horaFinalStringSessao).getTime());
+        
+        
+        
+        SessaoTecnica sessaoTecnica = new SessaoTecnica(dataSessao, timeValueSessao, timeValueFinalSessao);
+        System.out.println("Cadastrado: " + sessaoTecnica.toString());
+
+        sessoesTecnicas.add(new SessaoTecnica(dataSessao, timeValueSessao, timeValueFinalSessao));
+          
+        break;
+      case 4:
+        int n = sessoesTecnicas.size();
+        for (int a=0; a< n ; a++) {
+          sessoesTecnicas.get(a).toString();
+        }
+          
+        break;
+      case 5:
+        int m = minicursos.size();
+        for (int a=0; a< m ; a++) {
+          minicursos.get(a).toString();
+        }
+          
+        break;
+      case 6:
+        int l = professoresLista.size();
+        for (int a=0; a< l ; a++) {
+          System.out.println(professoresLista.get(a).getNome());
+        }
+          
+        break;
+      case 7:
+        System.out.println("Digite o cpf que deseja pesquisar: ");
+        String cpfPesquisa = in.next();
+
+        Professor professorCpf = professores.pesquisarProfessorPorCpf(cpfPesquisa);
+        System.out.println("O professor de cpf "+ professorCpf.getCpf()+ " é: "+ professorCpf.getNome());
+
+    }   
 
     in.close();
   }
+
 }
